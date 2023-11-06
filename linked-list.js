@@ -27,13 +27,14 @@ class LinkedList {
 
     if(this.head === null){
       this.head = newNode;
-    }
-
-    if(this.tail !== null){
+      // this.tail = newNode;
+      this.tail = this.head;
+    } else {
       this.tail.next = newNode;
+      this.tail = this.tail.next;
+      // this.tail = newNode;
     }
 
-    this.tail = newNode;
     this.length++;
   }
 
@@ -52,13 +53,12 @@ class LinkedList {
 
     if(this.head === null){
       this.head = newNode;
-      this.tail = newNode;
+    } else {
+      newNode.next = this.head
     }
 
-    else if(this.head !== null){
-      this.head.next = this.head;
-      this.head = newNode;
-    }
+    if (this.length === 0) this.tail = this.head;
+
     this.length++;
   }
 
@@ -67,7 +67,31 @@ class LinkedList {
   //
 
   pop() {
+    if (this.head === null){
+      throw new Error();
+    }
 
+    if (this.length === 1) {
+      let nodeToRemove = this.head;
+      this.head = null;
+      this.tail = null;
+      return nodeToRemove.val;
+    }
+
+    let cur = this.head;
+
+    while (cur.next.next !== null) {
+      cur = cur.next;
+      this.tail = cur;
+      console.log("!!!TAIL", this.tail);
+    }
+
+    // this.tail = cur;
+    let nodeToRemove = cur.next;
+    this.tail.next = null;
+    this.length--;
+    console.log("!!!", nodeToRemove, "Tail", this.tail, "Head", this.head);
+    return nodeToRemove.val;
   }
 
   /** shift(): return & remove first item. */
