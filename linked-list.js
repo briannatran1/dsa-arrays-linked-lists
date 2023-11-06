@@ -23,16 +23,48 @@ class LinkedList {
   /** push(val): add new value to end of list. */
 
   push(val) {
+    let newNode = new Node(val);
 
+    if(this.head === null){
+      this.head = newNode;
+    }
+
+    if(this.tail !== null){
+      this.tail.next = newNode;
+    }
+
+    this.tail = newNode;
+    this.length++;
   }
 
   /** unshift(val): add new value to start of list. */
 
-  unshift(val) {
+  // current head will be newNode we make
+  // next will be head before
+  // if head is null,
+  // head and tail need to be set for newNode
 
+  // if there is a head and a tail,
+  // only head will matter to us
+
+  unshift(val) {
+    let newNode = new Node(val);
+
+    if(this.head === null){
+      this.head = newNode;
+      this.tail = newNode;
+    }
+
+    else if(this.head !== null){
+      this.head.next = this.head;
+      this.head = newNode;
+    }
+    this.length++;
   }
 
   /** pop(): return & remove last item. */
+
+  //
 
   pop() {
 
@@ -71,7 +103,7 @@ class LinkedList {
   /** average(): return an average of all values in the list */
 
   average() {
-    
+
   }
 }
 
