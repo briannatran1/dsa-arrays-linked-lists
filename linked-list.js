@@ -90,8 +90,25 @@ class LinkedList {
 
   /** shift(): return & remove first item. */
 
-  shift() {
+  // [1,2,3] --> 1 [2, 3]
 
+  shift() {
+    if(this.length === 0){
+      throw new Error();
+    }
+
+    let removedNode = this.head;
+
+    if(this.head === this.tail){
+      this.head = null;
+      this.tail = null;
+    }
+    else{
+      this.head = this.head.next;
+    }
+
+    this.length--;
+    return removedNode.val;
   }
 
   /** getAt(idx): get val at idx. */
