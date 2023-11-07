@@ -116,7 +116,7 @@ class LinkedList {
   // [1, 2, 3] --> getAt(1) = 2
 
   getAt(idx) {
-    if(idx > this.length || idx < 0){
+    if(idx >= this.length || idx < 0){
       throw new Error();
     }
 
@@ -132,7 +132,17 @@ class LinkedList {
   /** setAt(idx, val): set val at idx to val */
 
   setAt(idx, val) {
+    if(idx >= this.length || idx < 0){
+      throw new Error();
+    }
 
+    let curr = this.head;
+
+    for(let i = 0; i < idx; i++){
+      curr = curr.next;
+    }
+
+    curr.val = val;
   }
 
   /** insertAt(idx, val): add node w/val before idx. */
