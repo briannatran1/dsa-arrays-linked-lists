@@ -20,6 +20,20 @@ class LinkedList {
     for (let val of vals) this.push(val);
   }
 
+  /** _get(idx): retrieve node at idx. */
+
+  _get(idx) {
+    let cur = this.head;
+    let count = 0;
+
+    while (cur !== null && count !== idx) {
+      count += 1;
+      cur = cur.next;
+    }
+
+    return cur;
+  }
+
   /** push(val): add new value to end of list. */
 
   push(val) {
@@ -147,8 +161,30 @@ class LinkedList {
 
   /** insertAt(idx, val): add node w/val before idx. */
 
-  insertAt(idx, val) {
+  /* idx = 1 val = 10
+    [1,2,3,4] --> [1,10,2,3,4]
+   */
 
+  insertAt(idx, val) {
+    if(idx > this.length || idx < 0){
+      throw new Error();
+    }
+
+    let newNode = new Node(val);
+    if(idx === this.length){
+      this.push(val);
+    }
+    else if(idx === 0){
+      this.unshift(val);
+    }
+    else{
+      const prevNode = this._get(idx - 1);
+      const nextNode = prevNode.next;
+      prevNode.next = newNode;
+      newNode.next = nextNode;
+    }
+
+    this.length++;
   }
 
   /** removeAt(idx): return & remove item at idx, */
