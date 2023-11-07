@@ -27,12 +27,10 @@ class LinkedList {
 
     if(this.head === null){
       this.head = newNode;
-      // this.tail = newNode;
       this.tail = this.head;
     } else {
       this.tail.next = newNode;
       this.tail = this.tail.next;
-      // this.tail = newNode;
     }
 
     this.length++;
@@ -48,6 +46,8 @@ class LinkedList {
   // if there is a head and a tail,
   // only head will matter to us
 
+  // 1 [2,3] -> [1,2,3]
+
   unshift(val) {
     let newNode = new Node(val);
 
@@ -55,43 +55,37 @@ class LinkedList {
       this.head = newNode;
     } else {
       newNode.next = this.head
+      this.head = newNode;
     }
 
     if (this.length === 0) this.tail = this.head;
-
     this.length++;
   }
 
   /** pop(): return & remove last item. */
 
-  //
+  // [1,2,3] -> [1,2] 3
 
   pop() {
-    if (this.head === null){
-      throw new Error();
-    }
-
-    if (this.length === 1) {
-      let nodeToRemove = this.head;
+    if (this.length === 0) throw new Error();
+    let curNode = this.head;
+    if (this.head === this.tail) {
       this.head = null;
       this.tail = null;
-      return nodeToRemove.val;
+      this.length--;
+      return curNode.val;
     }
 
-    let cur = this.head;
-
-    while (cur.next.next !== null) {
-      cur = cur.next;
-      this.tail = cur;
-      console.log("!!!TAIL", this.tail);
+    let prev;
+    while (curNode.next !== null) {
+      prev = curNode;
+      curNode = curNode.next;
     }
+    this.tail = prev;
 
-    // this.tail = cur;
-    let nodeToRemove = cur.next;
-    this.tail.next = null;
+    prev.next = null;
     this.length--;
-    console.log("!!!", nodeToRemove, "Tail", this.tail, "Head", this.head);
-    return nodeToRemove.val;
+    return curNode.val;
   }
 
   /** shift(): return & remove first item. */
