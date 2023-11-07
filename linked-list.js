@@ -113,8 +113,20 @@ class LinkedList {
 
   /** getAt(idx): get val at idx. */
 
-  getAt(idx) {
+  // [1, 2, 3] --> getAt(1) = 2
 
+  getAt(idx) {
+    if(idx > this.length || idx < 0){
+      throw new Error();
+    }
+
+    let curr = this.head;
+
+    for(let i = 0; i < idx; i++){
+      curr = curr.next;
+    }
+
+    return curr.val;
   }
 
   /** setAt(idx, val): set val at idx to val */
